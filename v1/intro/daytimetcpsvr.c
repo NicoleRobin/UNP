@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 		connfd = accept(listenfd, (struct sockaddr*)NULL, NULL);
 
 		ticks = time(NULL);
+		sleep(10);
 		snprintf(szBuff, sizeof(szBuff), "%.24s\r\n", ctime(&ticks));
 		write(connfd, szBuff, strlen(szBuff));
 		
