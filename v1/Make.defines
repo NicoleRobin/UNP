@@ -1,0 +1,4 @@
+CC = gcc -g
+INCDIR = ../include
+LIBDIR = ../lib
+FLAG = -I${INCDIR} -L${LIBDIR} ${DEBUGFLAG}

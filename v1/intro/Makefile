@@ -1,9 +1,8 @@
-CC = gcc
-INCDIR = ../include
-LIBDIR = ../lib
-FLAG = -I${INCDIR} -L${LIBDIR} ${DEBUGFLAG}
+include ../Make.defines
 
-all:daytimetcpcli daytimetcpsrv daytimetcpcli1 daytimetcpsrv1 daytimetcpcli2 daytimetcpsrv2 byteorder daytimetcpsrv3 
+PROGS = daytimetcpcli daytimetcpsrv daytimetcpcli1 daytimetcpsrv1 daytimetcpcli2 daytimetcpsrv2 byteorder daytimetcpsrv3 
+
+all:${PROGS}
 
 daytimetcpcli:daytimetcpcli.c
 	${CC} -o $@ $< ${FLAG} -lunp
@@ -31,4 +30,4 @@ daytimetcpsrv3:daytimetcpsrv3.c
 
 .PHONY:clean
 clean:
-	rm -rf daytimetcpcli daytimetcpsrv daytimetcpcli1 daytimetcpsrv1 daytimetcpcli2 daytimetcpsrv2 byteorder daytimetcpsrv3
+	rm -rf ${PROGS}
