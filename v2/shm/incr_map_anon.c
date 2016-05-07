@@ -4,22 +4,18 @@
 
 int main(int argc, char **argv)
 {
-	int fd, i, nloop, zero = 0;
+	int i, nloop;
 	int *ptr;
 	sem_t *mutex;
 
-	if (argc !=3)
+	if (argc !=2)
 	{
-		err_quit("usage: incr2 <pathname> <#loops>");
+		err_quit("usage: incr_map_anon <#loops>");
 	}
 
-	nloop = atoi(argv[2]);
+	nloop = atoi(argv[1]);
 	
-	/* open file, initialize to 0, map into memory */
-	fd = Open(argv[1], O_RDWR | O_CREAT, FILE_MODE);
-	Write(fd, &zero, sizeof(int));
-	ptr = Mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-	Close(fd);
+	ptr = Mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
 
 	/* create, initialize, and unlink semaphore */
 	mutex = Sem_open(SEM_NAME, O_CREAT | O_EXCL, FILE_MODE, 1);
@@ -34,7 +30,7 @@ int main(int argc, char **argv)
 			Sem_wait(mutex);
 			printf("child:%d\n", (*ptr)++);
 			Sem_post(mutex);
-			// sleep(1);
+			sleep(1);
 		}
 		exit(0);
 	}
@@ -44,7 +40,7 @@ int main(int argc, char **argv)
 		Sem_wait(mutex);
 		printf("parent:%d\n", (*ptr)++);
 		Sem_post(mutex);
-		// sleep(1);
+		sleep(1);
 	}
 
 	exit(0);
