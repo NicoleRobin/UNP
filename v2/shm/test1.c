@@ -33,7 +33,6 @@ int main(int argc, char **argv)
 	}
 
 	printf("ptr[%d] = %d\n", i, ptr[i]);
-	printf("ptr[%d] = %d\n", i + 4096, ptr[i + 4096]);
 
 	exit(0);
 }
