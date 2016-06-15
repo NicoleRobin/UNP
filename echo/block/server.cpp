@@ -59,6 +59,8 @@ int main(int argc, char **argv)
 		return errno;
 	}
 
+	cout << "Listenning on " << ECHO_PORT << endl;
+
 	int sock_cli;
 	struct sockaddr_in addr_cli;
 	socklen_t len;
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
 		
 		cout << "Receive connect from " << inet_ntoa(addr_cli.sin_addr) << endl;
 		echo_svr(sock_cli);
-
+		cout << "Disconnect from " << inet_ntoa(addr_cli.sin_addr) << endl;
 		close(sock_cli);
 	}
 
